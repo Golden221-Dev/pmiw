@@ -1,7 +1,14 @@
-function fondo() {
+function fondo(bg) {
   background(0);
+  if (bg == room) {
   imageMode(CORNERS);
-  image(room, 0, 0, 800, 600);
+  image(bg, 0, 0, 800, 600);
+  print(bg);
+  } else if (bg == balcony) {
+    imageMode(CENTER);
+    image(bg, width / 2, height / 2, 1800, 8 00);
+    print(bg);
+  }
 }
 
 function F(anim, velAnim) {
@@ -25,4 +32,18 @@ function cargarImagenes() {
   for(i = 0; i < 4; i++) {
     sentarse.push(loadImage("data/sentarse-" + (i + 1) + ".png"))
   }
+}
+
+function path() {
+  if(temporizador < 1) {
+    indiceDireccion = 3
+  } else if(temporizador < 2 && temporizador >1) {
+    indiceDireccion = 0;
+  } else if(temporizador < 3 && temporizador > 2) {
+    indiceDireccion = 1;
+  } else if(temporizador < 4 && temporizador > 3) {
+    indiceDireccion = 2;
+  } else if(temporizador > 4) {
+    indiceDireccion = 4;
+  } 
 }

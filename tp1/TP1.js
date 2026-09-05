@@ -4,9 +4,12 @@ let dirARR = [];
 let dirABA = [];
 let sentarse = [];
 let room;
+let balcony;
 
 let temporizador = 0;
 
+let bgX = 0;
+let bgEscalaX;
 let Escala = 4;
 let velAnim = 10;
 let movX = 220;
@@ -22,29 +25,27 @@ let indiceDireccion = 4;
 function preload(){
   cargarImagenes();
   room = loadImage("data/roomBackground.png");
+  balcony = loadImage("data/balconyBackground.png");
 }
 function setup(){
   createCanvas(800, 600);
   
 }
 function draw(){
-  fondo();
+  temporizador += floor(deltaTime) / 1000;
+  
+  let fondoActual;
+  
+  if (temporizador < 2) {
+    fondoActual = balcony;
+  } else if (temporizador > 2) {
+    fondoActual = room;
+  }
+  
+  fondo(fondoActual);
   imageMode(CENTER);
   
-  temporizador += floor(deltaTime) / 1000;
-  print(temporizador);
-  
-  if(temporizador < 1) {
-    indiceDireccion = 3
-  } else if(temporizador < 2 && temporizador >1) {
-    indiceDireccion = 0;
-  } else if(temporizador < 3 && temporizador > 2) {
-    indiceDireccion = 1;
-  } else if(temporizador < 4 && temporizador > 3) {
-    indiceDireccion = 2;
-  } else if(temporizador > 4) {
-    indiceDireccion = 4;
-  } 
+  path();
   
   let estado = direccion[indiceDireccion]
   let arrFrames;
