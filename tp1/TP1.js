@@ -2,45 +2,75 @@ let dirDER = [];
 let dirIZQ = [];
 let dirARR = [];
 let dirABA = [];
-let Escala = 8;
+let sentarse = [];
+let room;
+
+let temporizador = 0;
+
+let Escala = 4;
 let velAnim = 10;
-let movX = 400;
-let movY = 300;
+let movX = 220;
+let movY = 100;
+
 let velMov = 3;
-let direccion = ["camDER", "camIZQ", "camARR", "camABA"]
-let indiceDireccion = 0;
+let velAct = 1;
+
+let direccion = ["camDER", "camIZQ", "camARR", "camABA", "sentar"]
+let indiceDireccion = 4;
 
 
 function preload(){
   cargarImagenes();
+  room = loadImage("data/roomBackground.png");
 }
 function setup(){
   createCanvas(800, 600);
-  imageMode(CENTER);
+  
 }
 function draw(){
-  background(0);
+  fondo();
+  imageMode(CENTER);
+  
+  temporizador += floor(deltaTime) / 1000;
+  print(temporizador);
+  
+  if(temporizador < 1) {
+    indiceDireccion = 3
+  } else if(temporizador < 2 && temporizador >1) {
+    indiceDireccion = 0;
+  } else if(temporizador < 3 && temporizador > 2) {
+    indiceDireccion = 1;
+  } else if(temporizador < 4 && temporizador > 3) {
+    indiceDireccion = 2;
+  } else if(temporizador > 4) {
+    indiceDireccion = 4;
+  } 
   
   let estado = direccion[indiceDireccion]
   let arrFrames;
   
   switch(estado) {
-    case 0: //camDER
+    case "camDER": 
       movX += velMov * velAct;
-      arrFrames = dirDer;
-      print("HEY!!");
+      arrFrames = dirDER; 
       break;
-    case 1: //camIZQ
+    case "camIZQ": 
       movX -= velMov * velAct;
-      arrFrames = dirIZQ;
+      arrFrames = dirIZQ; 
       break;
-    case 2: //camARR
-      movY -= velMov * (velAct / 2);
-      arrFrames = dirARR;
+    case "camARR": 
+      movY -= velMov * (velAct * 0.75);
+      arrFrames = dirARR; 
       break;
-    case 3: //camABA
-      movY += velMov * (velAct / 2);
-      arrFrames = dirABA;
+    case "camABA":
+      movY += velMov * (velAct * 0.75);
+      arrFrames = dirABA; 
+      break;
+    case "sentar":
+      arrFrames = sentarse
+      if (F == 4) {
+        frame = 4;
+      };
       break;
   }
   
@@ -51,5 +81,4 @@ function draw(){
 
 function mousePressed() {
   indiceDireccion = (indiceDireccion + 1) % direccion.length;
-  print("funciono!!");
 }
