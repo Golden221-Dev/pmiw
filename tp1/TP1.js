@@ -6,10 +6,12 @@ let sentarse = [];
 let room;
 let balcony;
 
-let temporizador = 0;
+let unaVezCount = 0; 
+//no me voy a tomar el tiempo de ver en que frame exacto empieza
 
-let bgX = 0;
-let bgEscalaX;
+let temporizador = 0;
+let cambioAmbiente = false;
+
 let Escala = 4;
 let velAnim = 10;
 let movX = 220;
@@ -18,9 +20,8 @@ let movY = 100;
 let velMov = 3;
 let velAct = 1;
 
-let direccion = ["camDER", "camIZQ", "camARR", "camABA", "sentar"]
 let indiceDireccion = 4;
-
+let direccion = ["camDER", "camIZQ", "camARR", "camABA", "sentar"]
 
 function preload(){
   cargarImagenes();
@@ -32,14 +33,17 @@ function setup(){
   
 }
 function draw(){
-  temporizador += floor(deltaTime) / 1000;
+  temporizador += floor(deltaTime) / 100;
   
   let fondoActual;
   
-  if (temporizador < 2) {
-    fondoActual = balcony;
-  } else if (temporizador > 2) {
+  if (temporizador < 35.5) {
     fondoActual = room;
+  } else if (temporizador > 35.5) {
+    nuevaPos();
+    Escala = 3;
+    velMov = 2;
+    fondoActual = balcony;
   }
   
   fondo(fondoActual);
@@ -68,18 +72,31 @@ function draw(){
       arrFrames = dirABA; 
       break;
     case "sentar":
-      arrFrames = sentarse
-      if (F == 4) {
-        frame = 4;
-      };
+      arrFrames = sentarse;
       break;
   }
-  
+    
   let frame = F(arrFrames, velAnim);
+  if (estado == "sentar") {
+    velAnim = 16;
+    frame = unaVez(arrFrames, velAnim);
+  } else {
+    frame = F(arrFrames, velAnim);
+  }
   noSmooth();
   image(frame, movX, movY, frame.width * Escala, frame.height * Escala)
 }
 
 function mousePressed() {
-  indiceDireccion = (indiceDireccion + 1) % direccion.length;
+  unaVezCount = 0;
+  temporizador = 0;
+  cambioAmbiente = false;
+
+  Escala = 4;
+  velAnim = 10;
+  movX = 220;
+  movY = 100;
+
+  velMov = 3;
+  velAct = 1;
 }

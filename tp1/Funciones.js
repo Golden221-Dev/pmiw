@@ -6,7 +6,7 @@ function fondo(bg) {
   print(bg);
   } else if (bg == balcony) {
     imageMode(CENTER);
-    image(bg, width / 2, height / 2, 1800, 8 00);
+    image(bg, width / 2, height / 2, 1800, 800);
     print(bg);
   }
 }
@@ -14,6 +14,15 @@ function fondo(bg) {
 function F(anim, velAnim) {
   let ind = floor(frameCount / velAnim) % anim.length;
   return anim[ind];
+}
+
+function unaVez(anim, velAnim) {
+  let ind = floor(unaVezCount / velAnim)
+  if (ind >= anim.length) {
+    ind = anim.length - 1;
+  }
+  unaVezCount++;
+  return anim[ind]
 }
 
 function cargarImagenes() {
@@ -35,15 +44,27 @@ function cargarImagenes() {
 }
 
 function path() {
-  if(temporizador < 1) {
-    indiceDireccion = 3
-  } else if(temporizador < 2 && temporizador >1) {
+  if (temporizador < 20) {
+    indiceDireccion = 3;
+  } else if (temporizador > 20 && temporizador < 32) {
     indiceDireccion = 0;
-  } else if(temporizador < 3 && temporizador > 2) {
+  } else if (temporizador > 32 && temporizador < 40) {
+    indiceDireccion = 3;
+  } else if (temporizador > 40 && temporizador < 45) {
     indiceDireccion = 1;
-  } else if(temporizador < 4 && temporizador > 3) {
-    indiceDireccion = 2;
-  } else if(temporizador > 4) {
+  } else if (temporizador > 45 && temporizador < 50) {
+    indiceDireccion = 3;
+  } else if (temporizador > 50 && temporizador < 70) {
+    indiceDireccion = 1;
+  } else {
     indiceDireccion = 4;
-  } 
+  }
+}
+
+function nuevaPos() {
+  if (!cambioAmbiente){
+      movX = 440;
+      movY = 300;
+      cambioAmbiente = true;
+    }
 }
