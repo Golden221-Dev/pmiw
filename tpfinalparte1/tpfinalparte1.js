@@ -1,3 +1,6 @@
+//https://youtu.be/cGkdHmaQuiw 
+//Valentin Passaro
+
 let titularImg;
 let megamanFont;
 
@@ -7,15 +10,13 @@ let bajoPisoTile;
 let cieloTile;
 let pastoTile;
 
+let titularPosY = - 50;
 let posXmegaman;
 let posXsuelo = -42;
 let posYescenario = 0;
 let temporizador = 0;
 
-
 function preload() {
-  titularImg = loadImage("data/megamanTitle.png");
-  megamanFont = loadFont("data/MMRock9.otf");
   cargarAssets();
 }
 function setup() {
@@ -24,7 +25,7 @@ function setup() {
   posXmegaman = 848;
 }
 function draw() {
-  background(0);
+  background(252, 116, 96, 255);
   noSmooth();
   fondoMapa();
   temporizador++;
@@ -46,14 +47,8 @@ function draw() {
   let fotograma = animFrame(megamanCorre, 8);
   image(fotograma, posXmegaman, (height / 2) + 16 + posYescenario, 
         fotograma.width * 3, fotograma.height * 3);
-  fill(252, 116, 96, 0); //use imageColorPicket.com
-  rect(0, 0, 800, 450);
-  if (temporizador < 350) {
-    fill(0);
-  } else {
-    fill(255)
+        
+  if(temporizador > 550) {
+    pantallaFinal();
   }
-  text(temporizador, 20, 20);
-  
-  //pantallaFinal();
 }

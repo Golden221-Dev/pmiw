@@ -2,16 +2,21 @@ function animFrame(anim, velAnim) {
   let ind = floor(frameCount / velAnim) % anim.length;
   return anim[ind];
 } //Creo que la vez pasada no le gusto que llame a la funcion "F"
+//----
+
 function cargarAssets() {
   for (let i = 0; i < 3; i++) {
     megamanCorre.push(loadImage("data/megamanCorre" + (i + 1) + ".png"));
   }
+  titularImg = loadImage("data/megamanTitle.png");
+  megamanFont = loadFont("data/MMRock9.otf");
   pisoTile = loadImage("data/pisoTile.png");
   bajoPisoTile = loadImage("data/bajoPisoTile.png");
   cieloTile = loadImage("data/cieloTile.png");
   pastoTile = loadImage("data/pastoTile.png");
 }
 //un for loop para la animacion, y cargas individuales
+//----
 
 function fondoMapa() {
   for(let j = 0; j < 20; j++) {
@@ -35,12 +40,22 @@ function fondoMapa() {
 }
 //un ciclo for horizontal y uno vertical según texturas repetidas
 //el resto solo se acomodan horizontalmente
+//----
 
 function pantallaFinal() {
-  image(titularImg, width / 2, height / 3,
+  if(titularPosY < height / 3) {
+    titularPosY += 4;
+  }
+  image(titularImg, width / 2, titularPosY,
         titularImg.width * 2, titularImg.height * 2);
-  fill(255);
-  textFont(megamanFont);
-  textAlign(CENTER);
-  text("PRESS START!!", width / 2, height / 2);
+  if(temporizador > 625) {
+    fill(0);
+    textFont(megamanFont);
+    textAlign(CENTER);
+    text("PRESS START!!", width / 2, (height / 2) + 48);
+    text("TRABAJO PRACTICO FINAL", width / 2, (height / 1.5) + 32);
+    text("PARTE 1", width / 2, (height / 1.5) + 48);
+    text("VALENTIN PASSARO & JOAQUIN LABANDA", width / 2,
+        height - 48)
+  }
 }
